@@ -1,1 +1,1 @@
-# laravel-angular-spa
+# Мини-сайт объявлений SPA Laravel/Angular
