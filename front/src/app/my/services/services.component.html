@@ -1,0 +1,59 @@
+<a class="btn btn-light" routerLink="/my">Назад</a>
+<br>
+<h1>Подписка</h1>
+<br>
+<div *ngIf="!services.showCallback">
+  <div class="row">
+    <div class="card-deck mb-3 text-center col-xl-6 col-lg-12">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">7 дней</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">Бесплатно*</h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Доступ к контактам на 7 дней.</li>
+          </ul>
+          <button (click)="prepareCallback('Доступ к контактам на 7 дней')" type="button"
+                  class="btn btn-lg btn-block btn-outline-primary">Выбрать
+          </button>
+        </div>
+      </div>
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Месяц</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">100 руб. <small class="text-muted">/ месяц</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Доступ к контактам на 30 дней.</li>
+          </ul>
+          <button (click)="prepareCallback('Доступ к контактам на 30 дней')" type="button"
+                  class="btn btn-lg btn-block btn-outline-primary">Выбрать
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  * при условии, если вы готовы рекомендовать нам какого-нибудь специалиста своего дела из числа ваших знакомых
+  мусульман.
+</div>
+
+<div *ngIf="services.showCallback" class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label for="whatsapp">WhatsApp</label>
+      <input name="phone" [(ngModel)]="services.whatsapp" type="text" class="form-control" id="whatsapp"
+             placeholder="Напишите свой номер WhatsApp">
+      <small id="whatsappHelp" class="form-text text-muted">Мы будем связываться с вами по этому номеру.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="subject">Тема</label>
+      <input [(ngModel)]="services.subject" disabled="disabled" type="text" class="form-control" id="subject">
+    </div>
+
+    <button [disabled]="!services.whatsapp" (click)="sendCallback()" class="btn btn-primary">Запросить доступ
+    </button>
+  </div>
+</div>

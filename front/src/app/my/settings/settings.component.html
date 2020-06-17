@@ -1,0 +1,12 @@
+<a class="btn btn-light" routerLink="/my">Назад</a>
+<br>
+<h1>Настройки</h1>
+<br>
+<div class="row">
+  <div class="form-group col-md-4">
+    <label for="InputName1">Имя</label>
+    <input [(ngModel)]="name" name="name" type="text" class="form-control" id="InputName1">
+  </div>
+</div>
+
+<button (click)="save()" class="btn btn-primary">Сохранить</button>

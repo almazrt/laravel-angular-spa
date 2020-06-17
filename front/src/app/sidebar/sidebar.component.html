@@ -1,0 +1,46 @@
+<nav id="sidebar" class="sidebar-wrapper">
+  <div class="sidebar-content">
+    <div class="sidebar-brand">
+      <a routerLink="/">Muslim-skills.com</a>
+      <div id="close-sidebar">
+        <i class="fas fa-times"></i>
+      </div>
+    </div>
+    <div class="sidebar-header lead text-center text-light">
+      Ищем таланты среди братьев и сестёр
+
+    </div>
+    <!-- sidebar-header  -->
+
+    <app-menu class="sidebar-menu"></app-menu>
+
+    <!-- sidebar-menu  -->
+  </div>
+  <!-- sidebar-content  -->
+  <div class="sidebar-footer">
+    <a routerLink="/my/notifications" placement="right" ngbTooltip="Уведомления">
+      <i class="fa fa-bell"></i>
+      <!--      <span class="badge badge-pill badge-warning notification">3</span>-->
+    </a>
+    <a routerLink="/my/items" placement="top" ngbTooltip="Мои объявления">
+      <i class="fa fa-list"></i>
+      <!--      <span class="badge badge-pill badge-success notification">7</span>-->
+    </a>
+    <a routerLink="/my/settings" placement="top" ngbTooltip="Настройки">
+      <i class="fa fa-cog"></i>
+      <!--      <span class="badge-sonar"></span>-->
+    </a>
+
+    <a *ngIf="!authService.isLoggedIn()" href="javascript:void(0)" placement="top" ngbTooltip="Выход"><i
+      class="fa fa-power-off"></i></a>
+    <a *ngIf="authService.isLoggedIn()" href="javascript:void(0)" placement="top" ngbTooltip="Выход"
+       angularConfirmModal
+       [title]="'Предупреждение'"
+       [message]="'Вы уверены что хотите выйти из аккаунта?'"
+       [options]="{ confirmBtnText: 'Выйти',  cancelBtnText: 'Отмена', modalSize: 'md', modalClass: 'modal-dialog-confirm-centered' }"
+       (onConfirm)="this.authService.logout()"
+    >
+      <i class="fa fa-power-off"></i>
+    </a>
+  </div>
+</nav>

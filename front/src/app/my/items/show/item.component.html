@@ -1,0 +1,41 @@
+<button *ngIf="isShowBackButton()" class="btn btn-light" (click)="onBackClick()">Назад</button>
+<h1>{{item.category.name}}</h1>
+<br>
+<div class="card mb-4 mt-2 shadow-sm">
+  <div class="card-header">
+    <h4 class="my-0 font-weight-normal">{{item.title}}</h4>
+  </div>
+  <div class="card-body">
+    <p>{{item.description}}</p>
+    <ul class="list-unstyled mt-3 mb-4">
+      <li>Раздел: <a routerLink="/category/{{item.category_id}}">{{item.category.name}}</a></li>
+      <li>Имя: {{item.user.name}}</li>
+      <li>Город: {{item.city.name}}</li>
+    </ul>
+
+    <div *ngIf="item.reviews && item.reviews.length" class="reviews">
+      <h2>Отзывы</h2>
+      <p *ngFor="let review of item.reviews">
+        {{review.reviewer.name}}: {{review.description}} Оценка: {{review.value}}
+      </p>
+    </div>
+
+    <button *ngIf="!contacts" (click)="showContacts()" type="button" class="mt-2 btn btn-lg btn-primary">Показать
+      контакты
+    </button>
+
+    <div *ngIf="contacts">
+      <h2>Контакты</h2>
+      <div class="mb-1" *ngIf="contacts.phone"><strong>Телефон: </strong> <a target="_blank" href="tel:{{contacts.phone}}">{{contacts.phone}}</a></div>
+      <div class="mb-1" *ngIf="contacts.whatsapp"><strong>Whatsapp: </strong> <a target="_blank" href="https://api.whatsapp.com/send?phone={{contacts.whatsapp}}">{{contacts.whatsapp}}</a></div>
+      <div class="mb-1" *ngIf="contacts.insta"><strong>Инстаграм: </strong> <a target="_blank" href="https://www.instagram.com/{{contacts.insta}}">@{{contacts.insta}}</a></div>
+      <div class="mb-1" *ngIf="contacts.telegram"><strong>Телеграм: </strong> <a target="_blank" href="https://t.me/{{contacts.telegram}}">@{{contacts.telegram}}</a></div>
+      <div class="mb-1" *ngIf="contacts.vk"><strong>Вконтакте: </strong> <a target="_blank" href="{{contacts.vk}}">{{contacts.vk}}</a></div>
+      <div class="mb-1" *ngIf="contacts.fb"><strong>Facebook: </strong> <a target="_blank" href="{{contacts.fb}}">{{contacts.fb}}</a></div>
+      <div class="mb-1" *ngIf="contacts.website"><strong>Сайт: </strong> <a target="_blank" href="{{contacts.website}}">{{contacts.website}}</a></div>
+      <div class="mb-1" *ngIf="contacts.address"><strong>Адрес: </strong> <a target="_blank" href="https://www.google.ru/maps/place/{{contacts.address}}">{{contacts.address}}</a></div>
+      <div class="mb-1" *ngIf="contacts.other_contacts"><strong>Другие контакты: </strong> <a target="_blank" href="{{contacts.other_contacts}}">{{contacts.other_contacts}}</a></div>
+    </div>
+
+  </div>
+</div>

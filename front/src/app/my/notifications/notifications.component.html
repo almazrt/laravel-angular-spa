@@ -1,0 +1,27 @@
+<a class="btn btn-light" routerLink="/my">Назад</a>
+<br>
+<h1>Уведомления</h1>
+<br>
+<div
+  *ngFor="let notification of notifications.data | paginate: { itemsPerPage: 5, currentPage: notifications.current_page , totalItems: notifications.total}; index as i">
+  <div *ngIf="notification.type===NOTIFICATION_TYPES.TYPE_INFO.value" class="alert alert-primary" role="alert">
+    <i>{{notification.created_at| date: 'dd.MM.yyyy HH:mm' : 'UTC 0'}} </i>
+    <strong>{{notification.title}}</strong> {{notification.description}}
+  </div>
+  <div *ngIf="notification.type===NOTIFICATION_TYPES.TYPE_SUCCESS.value" class="alert alert-success" role="alert">
+    <strong>{{notification.title}}</strong> <strong>{{notification.description}}</strong>
+  </div>
+  <div *ngIf="notification.type===NOTIFICATION_TYPES.TYPE_ERROR.value" class="alert alert-danger" role="alert">
+    <strong>{{notification.title}}</strong> <strong>{{notification.description}}</strong>
+  </div>
+</div>
+
+<div *ngIf="notifications.total===0">Пока ничего нет.</div>
+
+<br>
+
+<pagination-controls (pageChange)="loadNotifications($event)"
+                     previousLabel="Пред."
+                     nextLabel="След"
+></pagination-controls>
+

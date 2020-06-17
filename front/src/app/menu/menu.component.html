@@ -1,0 +1,58 @@
+<div class="mt-1 mb-3 text-center">
+  <a *ngIf="!authService.isLoggedIn()" routerLink="/login"
+     class="mt-1 mb-3 btn btn-primary btn-sm">Регистрация</a>
+
+  <a *ngIf="authService.isLoggedIn()" routerLink="/my"
+     class="mt-1 mb-3 btn btn-primary btn-sm">Личный кабинет</a>
+
+  <!--        <button *ngIf="authService.isLoggedIn()" class="mt-3 mb-3 btn btn-primary btn-sm"-->
+  <!--                (click)="authService.logout()">{{authService.getCurrentUser().name}} - Выход-->
+  <!--        </button>-->
+</div>
+
+<div class="sidebar-search">
+  <div>
+    <div class="input-group">
+      <input (input)="itemService.setTerm($event.target.value)" type="text" class="form-control search-menu"
+             placeholder="Поиск...">
+      <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="m-4">
+  <ng-select [items]="cities"
+             (change)="onChangeCity($event)"
+             [(ngModel)]="cityId"
+             bindLabel="name"
+             bindValue="id"
+             placeholder="Выберите город">
+  </ng-select>
+</div>
+
+<ul class="mb-4">
+  <li class="header-menu">
+    <span>Разделы</span>
+  </li>
+  <li *ngFor="let category of categories" [ngClass]="{'sidebar-dropdown': category.children.length}">
+    <!--    <a *ngIf="categories.children.length" href="javascript:void(0);">-->
+    <!--      <i [class]="'fa '+categories.icon"></i>-->
+    <!--      <span>{{categories.name}}</span>-->
+    <!--    </a>-->
+    <a routerLink="/category/{{category.id}}{{cityId ? '/city/'+cityId : ''}}">
+      <i [class]="'fa '+category.icon"></i>
+      <span>{{category.name}}</span>
+    </a>
+    <div *ngIf="category.children.length" class="sidebar-submenu" style="display: none;">
+      <ul>
+        <li *ngFor="let child of category.children">
+          <a routerLink="/category/{{child.id}}{{cityId ? '/city/'+cityId : ''}}">{{child.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+</ul>

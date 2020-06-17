@@ -1,0 +1,52 @@
+<a class="btn btn-light" routerLink="/my">Назад</a>
+<br>
+<h1>Мои объявления</h1>
+<br>
+<a class="btn btn-primary" routerLink="/my/items/new">Новое объявление</a>
+<br>
+<br>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Город</th>
+      <th scope="col">Раздел</th>
+      <th scope="col">Заголовок</th>
+      <th scope="col">Статус</th>
+      <th scope="col">Текст</th>
+      <th class="text-center" scope="col">Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr
+      *ngFor="let item of items.data | paginate: { itemsPerPage: 5, currentPage: items.current_page , totalItems: items.total}; index as i">
+      <td scope="row">{{item.id}}</td>
+      <td scope="col">{{item.city.name}}</td>
+      <td scope="col">{{item.category.name}}</td>
+      <td scope="col">{{item.title}}</td>
+      <td scope="col">{{item.status | statusName}}</td>
+      <td scope="col">{{item.description | truncate:['70']}}</td>
+      <td class="text-center text-nowrap" scope="col">
+        <a class="m-2" routerLink="/my/items/{{item.id}}" placement="top" ngbTooltip="Посмотреть"><i
+          class="fa fa-eye"></i></a>
+        <a class="m-2" routerLink="/my/items/{{item.id}}/edit" placement="top" ngbTooltip="Редактировать"><i
+          class="fa fa-edit"></i></a>
+        <a class="m-2" href="javascript:void(0)" placement="top" ngbTooltip="Удалить"
+           angularConfirmModal
+           [title]="'Предупреждение'"
+           [message]="'Вы уверены что хотите удалить объявление'"
+           [options]="{ confirmBtnText: 'Удалить',  cancelBtnText: 'Отмена', modalSize: 'md', modalClass: 'modal-dialog-confirm-centered' }"
+           (onConfirm)="deleteItem(item.id)"
+        ><i
+          class="fa fa-trash"></i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<pagination-controls (pageChange)="loadItems($event)"
+                     previousLabel="Пред."
+                     nextLabel="След"
+></pagination-controls>

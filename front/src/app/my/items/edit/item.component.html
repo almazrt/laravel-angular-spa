@@ -1,0 +1,119 @@
+<a class="btn btn-light" routerLink="/my">Назад</a>
+<br>
+<h1>{{item.id ? 'Изменение объявления' : 'Новое объявление'}}</h1>
+<br>
+<div class="row">
+  <div class="col-md-4">
+    <form>
+      <div class="form-group">
+        <label for="exampleInputTitle">Заголовок / вид деятельности</label>
+        <input [(ngModel)]="item.title" type="text" name="title" class="form-control" id="exampleInputTitle"
+               placeholder="Например, Ремонт стиральных машин">
+      </div>
+
+      <div class="form-group">
+        <label for="citySelect">Город</label>
+        <ng-select id="citySelect" [items]="cities"
+                   [(ngModel)]="item.city_id"
+                   bindLabel="name"
+                   bindValue="id"
+                   name="city"
+                   placeholder="Выберите город">
+        </ng-select>
+      </div>
+
+      <div class="mt-1">
+        <label for="categorySelect">Раздел</label>
+        <div class="input-group mb-4">
+          <input [(ngModel)]="item.category.name" name="category" id="categorySelect" readonly type="text"
+                 class="form-control"
+                 placeholder="Выберите раздел">
+          <div class="input-group-append">
+            <button (click)="open(selectCategory)" class="btn btn-outline-secondary" type="button" id="button-addon2">
+              Выбрать
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Описание (контакты здесь не указываем)</label>
+        <textarea [(ngModel)]="item.description" name="description" class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="7"></textarea>
+      </div>
+
+      <br>
+      <h2>Контакты</h2>
+      <br>
+
+      <div class="form-group">
+        <label for="input-username">Имя</label>
+        <input [(ngModel)]="user.name" type="text" name="username" class="form-control" id="input-username">
+      </div>
+      <div class="form-group">
+        <label for="input-phone">Телефон</label>
+        <input [(ngModel)]="item.phone" type="text" name="phone" class="form-control" id="input-phone">
+      </div>
+      <div class="form-group">
+        <label for="input-whatsapp">WhatsApp</label>
+        <input [(ngModel)]="item.whatsapp" type="text" name="whatsapp" class="form-control" id="input-whatsapp">
+      </div>
+      <div class="form-group">
+        <label for="input-insta">Instagram</label>
+        <input [(ngModel)]="item.insta" type="text" name="insta" class="form-control" id="input-insta">
+      </div>
+
+      <div *ngIf="!moreContacts && !item.id">
+        <a href="javascript:void(0)" (click)="moreContacts=true">Ещё</a>
+        <br>
+      </div>
+      <div *ngIf="moreContacts || item.id">
+        <div class="form-group">
+          <label for="input-telegram">Telegram</label>
+          <input [(ngModel)]="item.telegram" type="text" name="telegram" class="form-control" id="input-telegram">
+        </div>
+        <div class="form-group">
+          <label for="input-vk">Вконтакте</label>
+          <input [(ngModel)]="item.vk" type="text" name="vk" class="form-control" id="input-vk">
+        </div>
+        <div class="form-group">
+          <label for="input-fb">Facebook</label>
+          <input [(ngModel)]="item.fb" type="text" name="fb" class="form-control" id="input-fb">
+        </div>
+        <div class="form-group">
+          <label for="input-website">Сайт</label>
+          <input [(ngModel)]="item.website" type="text" name="website" class="form-control" id="input-website">
+        </div>
+        <div class="form-group">
+          <label for="input-address">Адрес</label>
+          <input [(ngModel)]="item.address" type="text" name="address" class="form-control" id="input-address">
+        </div>
+        <div class="form-group">
+          <label for="input-other_contacts">Другие контакты</label>
+          <input [(ngModel)]="item.other_contacts" type="text" name="other_contacts" class="form-control"
+                 id="input-other_contacts">
+        </div>
+      </div>
+      <br>
+
+      <button (click)="save()" type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+  </div>
+</div>
+
+<ng-template #selectCategory let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Разделы</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div style="height: 420px" class="modal-body">
+    <app-category-selector [category]="item.category" (selectedCategory)="setCategory($event)"></app-category-selector>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Выбрать</button>
+  </div>
+</ng-template>
+

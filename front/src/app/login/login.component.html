@@ -1,0 +1,28 @@
+<div class="col-md-4">
+  <h1>Регистрация</h1>
+
+  <div *ngIf="!userInfo.userId">
+    <div class="form-group">
+      <label for="phoneInput">Номер телефона</label>
+      <input name="phone" required="required" type="text" mask="(000) 000-0000" prefix="+7 "
+             [(ngModel)]="userInfo.phone" #phone="ngModel" minlength="10" maxlength="17"
+             class="form-control" id="phoneInput" placeholder="+7 (917) 111-2222">
+    </div>
+    <button [disabled]="phone.invalid" (click)="register()" class="btn btn-primary">Далее
+    </button>
+  </div>
+
+  <div *ngIf="userInfo.userId">
+    <div class="form-group">
+
+      <div class="lead">Мы отправили код подтверждения на ваш телефон.</div>
+      <br>
+      <label for="codeInput">Код подтверждения</label>
+      <input name="code" required="required" type="number" minlength="6"
+             [(ngModel)]="userInfo.code" #code="ngModel"
+             class="form-control" id="codeInput" placeholder="000000">
+    </div>
+    <button *ngIf="userInfo.userId" [disabled]="code.invalid" (click)="confirm()" class="btn btn-primary">Далее</button>
+  </div>
+
+</div>
